@@ -1,4 +1,4 @@
-package tree;
+package ds.tree;
 
 /**
  * @author wangsheng
