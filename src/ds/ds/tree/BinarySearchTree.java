@@ -92,40 +92,42 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements Tree<E
         Node<E> parent = targetedNode.parent;
         // 情形一：targetedNode没有孩子节点，直接删除
         if (Objects.isNull(targetedNode.left) && Objects.isNull(targetedNode.right)) {
-            targetedNode.parent = null;
-            targetedNode.data = null;
             if (parent.left == targetedNode) {
                 parent.left = null;
             } else {
                 parent.right = null;
             }
-        } else if (Objects.isNull(targetedNode.left)) {
-        // 情形二：targetedNode只有一个右子节点
             targetedNode.parent = null;
             targetedNode.data = null;
+        } else if (Objects.isNull(targetedNode.left)) {
+        // 情形二：targetedNode只有一个右子节点
             if (parent.left == targetedNode) {
                 parent.left = targetedNode.right;
             } else {
                 parent.right = targetedNode.right;
             }
-        } else if (Objects.isNull(targetedNode.right)) {
-            // 情形三： targetedNode只有一个左子节点
             targetedNode.parent = null;
             targetedNode.data = null;
+        } else if (Objects.isNull(targetedNode.right)) {
+            // 情形三： targetedNode只有一个左子节点
             if (parent.left == targetedNode) {
                 parent.left = targetedNode.left;
             } else {
                 parent.right = targetedNode.left;
             }
+            targetedNode.parent = null;
+            targetedNode.data = null;
         } else {
             // 情形四：targetedNode既有左子节点，又有右子节点。选择targetedNode的右子树中最小的元素来保持有序性
 
             Node<E> rightMinNode = findMin(targetedNode.right);
             // 两个节点交换值
             Objects.requireNonNull(rightMinNode);
+            E tmp = targetedNode.data;
             targetedNode.data = rightMinNode.data;
+            rightMinNode.data = tmp;
             // 递归删除已交换完值的节点
-            remove(node, rightMinNode.data);
+            remove(node.right, rightMinNode.data);
         }
 
         return true;
@@ -218,7 +220,6 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements Tree<E
         4. 循环终止条件：栈为空，且当前节点为null
         */
         Deque<Node<E>> tube = new ArrayDeque<>();
-        tube.push(node);
         Node<E> cur = node;
         while (!tube.isEmpty() || !Objects.isNull(cur)) {
             if (!Objects.isNull(cur)) {
