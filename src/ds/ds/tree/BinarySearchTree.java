@@ -222,14 +222,14 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements Tree<E
         Deque<Node<E>> tube = new ArrayDeque<>();
         Node<E> cur = node;
         while (!tube.isEmpty() || !Objects.isNull(cur)) {
-            if (!Objects.isNull(cur)) {
+            while (!Objects.isNull(cur)) {
                 tube.push(cur);
                 cur = cur.left;
-            } else {
-                cur = tube.poll();
-                action.accept(cur.data);
-                cur = cur.right;
             }
+
+            cur = tube.poll();
+            action.accept(cur.data);
+            cur = cur.right;
         }
     }
 
@@ -244,7 +244,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements Tree<E
 
         /*
         后序遍历与中序遍历类似，但是情况略微复杂
-        1. 一路遍历到最左下端的节点，将它们全部压入栈中，直至全部遍历完毕
+        1. 所有第一次遇到的节点一路遍历到最左下端的节点，将它们全部压入栈中，直至全部遍历完毕
         2. 将栈顶元素作为当前节点。显然，当前节点的左子树已经遍历完毕。此时条件允许，应当遍历右子树
         3. 如果当前节点满足下列条件之一，则访问该节点：
         (1) 当前节点没有右子节点（左子节点无需考虑，因为左子树已经遍历完毕）
@@ -262,21 +262,25 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements Tree<E
         Node<E> cur = node;
         Node<E> lastVisited = null;
         while (!tube.isEmpty() || !Objects.isNull(cur)) {
-            if (!Objects.isNull(cur)) {
+            while (!Objects.isNull(cur)) {
                 tube.push(cur);
                 cur = cur.left;
-            } else {
-                cur = tube.peek();
-                if (Objects.isNull(cur.right) || lastVisited == cur.right) {
-                    action.accept(cur.data);
-                    lastVisited = cur;
-                    tube.poll();
-                    // 此处十分关键，否则会导致严重错误！
-                    cur = null;
-                } else {
-                    cur = cur.right;
-                }
             }
+
+            cur = tube.peek();
+            if (Objects.isNull(cur.right) || lastVisited == cur.right) {
+                // 满足两个条件之一 -> 访问该节点，并更新lastVisited和cur
+                action.accept(cur.data);
+                // 更新lastVisited
+                lastVisited = cur;
+                tube.poll();
+                // 重要：更新当前节点，防止循环后 重复遍历该节点的左子树！！！
+                cur = null;
+            } else {
+                // 不满足访问的条件 -> 深入到节点的右子树中去
+                cur = cur.right;
+            }
+
 
         }
     }
