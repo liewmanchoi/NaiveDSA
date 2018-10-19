@@ -34,12 +34,7 @@ public class BinaryHeap<E extends Comparable<? super E>> implements Tree<E>  {
     }
 
     public BinaryHeap(E[] elems) {
-        this.comparator = Comparator.naturalOrder();
-        this.heap = new ArrayList<>(Arrays.asList(elems));
-        this.size = heap.size();
-
-        // 调整结构，保持堆的有序性
-        heapify();
+        this(Arrays.asList(elems));
     }
 
 
@@ -63,7 +58,7 @@ public class BinaryHeap<E extends Comparable<? super E>> implements Tree<E>  {
 
     @Override
     public boolean insert(E element) {
-        if (heap == null) {
+        if (element == null) {
             return false;
         }
 
@@ -83,7 +78,7 @@ public class BinaryHeap<E extends Comparable<? super E>> implements Tree<E>  {
     @Override
     public boolean remove(E element) {
         int idx = heap.indexOf(element);
-        if (element == null || idx == -1) {
+        if (idx == -1) {
             return false;
         }
         removeAt(idx);
@@ -133,7 +128,14 @@ public class BinaryHeap<E extends Comparable<? super E>> implements Tree<E>  {
      * 调整底层数组heap，使之保持有序性
      */
     private void heapify() {
+        if (isEmpty()) {
+            return;
+        }
 
+        int lastNonLeaf = size() / 2 - 1;
+        for (int idx = lastNonLeaf; idx >= 0; --idx) {
+            shiftDown(idx, heap.get(idx));
+        }
     }
 
     /**
@@ -164,8 +166,8 @@ public class BinaryHeap<E extends Comparable<? super E>> implements Tree<E>  {
      * @param element: 下滤处的值
      */
     private void shiftDown(int idx, E element) {
-        int lastNoLeaf = size() / 2  - 1;
-        while (idx <= lastNoLeaf) {
+        int lastNonLeaf = size() / 2  - 1;
+        while (idx <= lastNonLeaf) {
             int leftChild = 2 * idx + 1;
             int rightChild = leftChild + 1;
             int smallestChild = leftChild;
