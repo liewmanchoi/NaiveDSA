@@ -148,7 +148,7 @@ public class BinaryHeap<E extends Comparable<? super E>> implements Tree<E>  {
             int parent = (idx - 1) / 2;
             E e = heap.get(parent);
             if (comparator.compare(element, e) >= 0) {
-                // 如果element大于parent的值，则跳出循环
+                // 如果element大于等于parent的值，则跳出循环
                 break;
             }
             // 否则，将idx的值设置为parent的值
@@ -171,6 +171,7 @@ public class BinaryHeap<E extends Comparable<? super E>> implements Tree<E>  {
             int leftChild = 2 * idx + 1;
             int rightChild = leftChild + 1;
             int smallestChild = leftChild;
+            // 最后一个非叶节点lastNonLeaf只能保证一定有左子节点，因此要增加对是否有右子节点的判断
             if (rightChild < size() && comparator.compare(heap.get(leftChild), heap.get(rightChild)) > 0) {
                 smallestChild = rightChild;
             }
