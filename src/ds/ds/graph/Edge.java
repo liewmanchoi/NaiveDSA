@@ -22,13 +22,21 @@ public class Edge<T>  {
         this.weight = weight;
     }
 
+    public Edge(T beginUniqueId, T endUniqueId, double weight) {
+        this(new Vertex<>(beginUniqueId), new Vertex<>(endUniqueId), weight);
+    }
+
     /**
      * 创建不带权重的边
      * @param begin: 边的起始结点
      * @param end：边的终止结点
      */
     public Edge(Vertex<T> begin, Vertex<T> end) {
-        this(begin, end, 1);
+        this(begin, end, 0);
+    }
+
+    public Edge(T beginUniqueId, T endUniqueId) {
+        this(beginUniqueId, endUniqueId, 0);
     }
 
     public double getWeight() {
@@ -45,9 +53,22 @@ public class Edge<T>  {
         return end;
     }
 
+    public boolean containVertex(Vertex<T> vertex) {
+        return begin.equals(vertex) || end.equals(vertex);
+    }
+
+    public boolean containVertex(T vertexUniqueId) {
+        Vertex<T> vertex = new Vertex<>(vertexUniqueId);
+        return begin.equals(vertex) || end.equals(vertex);
+    }
+
+    public Edge<T> reversed() {
+        return new Edge<>(this.end, this.begin, weight);
+    }
+
     @Override
     public String toString() {
-        return "Edge{" + begin + "-" + end + "}";
+        return "Edge<" + begin.getUniqueId() + "-" + end.getUniqueId() + ">";
     }
 
     @Override
@@ -69,7 +90,7 @@ public class Edge<T>  {
         }
 
         Edge other = (Edge)otherObject;
-        return Objects.equals(this.begin, other.begin) && Objects.equals(this.end, other.end);
+        return Objects.equals(begin, other.begin) && Objects.equals(end, other.end);
 
     }
 }
