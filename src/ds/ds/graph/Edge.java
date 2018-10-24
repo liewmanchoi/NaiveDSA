@@ -5,7 +5,7 @@ import java.util.Objects;
  * @author wangsheng
  * @date 2018/10/22
  */
-public class Edge<T>  {
+public class Edge<T> implements Comparable<Edge<? super T>> {
     private final Vertex<T> begin;
     private final Vertex<T> end;
     private double weight;
@@ -92,5 +92,10 @@ public class Edge<T>  {
         Edge other = (Edge)otherObject;
         return Objects.equals(begin, other.begin) && Objects.equals(end, other.end);
 
+    }
+
+    @Override
+    public int compareTo(Edge<? super T> o) {
+        return Double.compare(weight, o.weight);
     }
 }
