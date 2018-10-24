@@ -84,4 +84,9 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     public Set<Edge<T>> getEdges(Vertex<T> vertex) {
         return map == null ? null : map.getOrDefault(vertex, null);
     }
+
+    @Override
+    public String toString() {
+        return map.toString();
+    }
 }
