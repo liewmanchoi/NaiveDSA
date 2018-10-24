@@ -1,10 +1,8 @@
-package graph;
+package algorithm.graph;
 
 import ds.graph.AbstractGraph;
 import ds.graph.WeightedUndirectedGraph;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class PrimTest {
 

@@ -1,4 +1,4 @@
-package graph;
+package algorithm.graph;
 
 import ds.graph.AbstractGraph;
 import ds.graph.Vertex;

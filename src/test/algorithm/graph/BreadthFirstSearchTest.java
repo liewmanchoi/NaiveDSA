@@ -1,11 +1,9 @@
-package graph;
+package algorithm.graph;
 
 import ds.graph.WeightedUndirectedGraph;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class DepthFirstSearchTest {
+public class BreadthFirstSearchTest {
 
     @Test
     public void search() {
@@ -26,7 +24,7 @@ public class DepthFirstSearchTest {
         graph.addEdge(5, 3, 1);
         graph.addEdge(3, 4, 1);
 
-        DepthFirstSearch<Integer> graphs = new DepthFirstSearch<>(graph);
+        BreadthFirstSearch<Integer> graphs = new BreadthFirstSearch<>(graph);
         graphs.search(System.out::print);
     }
 }

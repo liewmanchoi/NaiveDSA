@@ -1,4 +1,4 @@
-package ds.graph;
+package ds.tree;
 
 import java.util.Collection;
 import java.util.HashMap;
