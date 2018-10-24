@@ -16,7 +16,7 @@ import java.util.Queue;
  * selected vertices and add its adjacent vertex to tree if it is not already in the tree.
  * Running time is O(V^2). It can be done O(E+ V logV) by using Fibonacci heap.
  */
-public class Prim<T> {
+public class Prim {
 
     public static <T>
     AbstractGraph<T> generateMST(WeightedUndirectedGraph<T> graph) {
