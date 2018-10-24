@@ -80,4 +80,8 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         }
         return neighbors;
     }
+
+    public Set<Edge<T>> getEdges(Vertex<T> vertex) {
+        return map == null ? null : map.getOrDefault(vertex, null);
+    }
 }
