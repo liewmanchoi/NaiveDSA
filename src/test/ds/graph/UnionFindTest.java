@@ -1,5 +1,6 @@
 package ds.graph;
 
+import ds.tree.UnionFind;
 import org.junit.Test;
 
 import java.util.ArrayList;
