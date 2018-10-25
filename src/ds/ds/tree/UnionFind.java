@@ -63,6 +63,7 @@ public final class UnionFind<T> {
             parent = elems.get(son).parent;
         }
 
+        // 路径压缩
         T root = son;
         for (T parent = elems.get(elem).parent; !parent.equals(elem); ) {
             elems.get(elem).parent = root;
