@@ -81,6 +81,19 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         return neighbors;
     }
 
+    public boolean containsVertex(Vertex<T> vertex) {
+        return map.containsKey(vertex);
+    }
+
+    public boolean containsEdge(Edge<T> edge) {
+        if (edge == null) {
+            return false;
+        }
+
+        Vertex<T> begin = edge.getBegin();
+        return map.get(begin).contains(edge);
+    }
+
     public Set<Edge<T>> getEdges(Vertex<T> vertex) {
         return map == null ? null : map.getOrDefault(vertex, null);
     }
