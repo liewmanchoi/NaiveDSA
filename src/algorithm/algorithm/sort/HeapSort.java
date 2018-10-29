@@ -9,7 +9,7 @@ package algorithm.sort;
  */
 public class HeapSort {
     public static <T extends Comparable<? super T>> void sort(T[] array) {
-        if (array == null || array.length == 0) {
+        if (array == null) {
             return;
         }
 
