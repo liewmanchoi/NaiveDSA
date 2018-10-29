@@ -5,7 +5,7 @@ package algorithm.sort;
  * @date 2018/10/28
  * time complexity O(n^2)
  * space complexity O(1)
- * stable
+ * unstable
  */
 public class SelectionSort {
     public static <T extends Comparable<? super T>> void sort(T[] array) {
