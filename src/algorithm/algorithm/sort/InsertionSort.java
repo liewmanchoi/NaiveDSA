@@ -14,11 +14,13 @@ public class InsertionSort {
         }
 
         for (int i = 1; i < array.length; ++i) {
-            for (int j = i - 1; j >= 0 && array[j].compareTo(array[j+1]) > 0; --j) {
-                T temp = array[j];
-                array[j] = array[j+1];
-                array[j+1] = temp;
+            T insertionValue = array[i];
+            int j = i;
+            while (j >= 1 && array[j-1].compareTo(insertionValue) > 0) {
+                array[j] = array[j-1];
+                --j;
             }
+            array[j] = insertionValue;
         }
     }
 }
