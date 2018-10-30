@@ -3,6 +3,9 @@ package algorithm.sort;
 /**
  * @author wangsheng
  * @date 2018/10/29
+ * time complexity O(n^d)
+ * space complexity O(1)
+ * unstable
  */
 public class ShellSort {
     public static <T extends Comparable<? super T>> void sort(T[] array) {
