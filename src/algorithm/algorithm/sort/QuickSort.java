@@ -78,8 +78,8 @@ public class QuickSort {
         T pivot = array[pivotIdx];
         // 将array[pivot]移动到array[right]处，则只需要调整[left, right-1]区间的元素
         swap(array, pivotIdx, right);
-        // 划分区间[left, p)和[p, right)，
-        // 指针p左端的元素[0...p-1]全部小于pivot，指针q在区间[p, right)寻找小于pivot的元素
+        // 划分区间[left, p)和[p, q)和[q, right)，
+        // 指针p左端的元素[0...p-1]全部小于pivot，指针q在区间[q, right)寻找小于pivot的元素
         // 如果有，则将p和q指向的值交换，指针p和q分别前移
         int p = left;
         for (int q = p; q < right; ++q) {
